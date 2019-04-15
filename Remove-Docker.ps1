@@ -1,7 +1,7 @@
 #Requires -RunAsAdministrator
 
 Stop-Service Docker
-Remove-Service Docker
+sc.exe delete Docker
 Remove-Item "$env:ProgramFiles\Docker" -Force -Recurse
 Remove-Item "$env:ProgramFiles\Linux Containers" -Force -Recurse
 Remove-LocalGroup -Name Docker
