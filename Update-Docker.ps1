@@ -4,7 +4,7 @@
 
 if (Get-Service Docker -ErrorAction SilentlyContinue) {
     Stop-Service Docker
-    Remove-Service Docker
+    sc.exe delete Docker
     Remove-Item "$env:ProgramFiles\Docker" -Force -Recurse
 }
 else {
