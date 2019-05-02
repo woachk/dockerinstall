@@ -1,6 +1,7 @@
 #Requires -RunAsAdministrator
 
 # Take care of already installed bits
+# SilentlyContinue is used to not have warnings appear when going through the checks, on a system where Docker is not installed.
 
 if (Get-Service Docker -ErrorAction SilentlyContinue) {
     Stop-Service Docker
@@ -19,7 +20,9 @@ else {
     }
 }
 
-New-Item -ItemType Directory "$env:ProgramFiles\Docker" 
+# If the previous install didn't succeed, the service might not have been created. As such, SilentlyContinue is used here.
+New-Item -ItemType Directory "$env:ProgramFiles\Docker" -ErrorAction SilentlyContinue
+
 Set-Location "$env:ProgramFiles\Docker"
 Invoke-WebRequest -UseBasicParsing -OutFile dockerd.exe https://master.dockerproject.org/windows/x86_64/dockerd.exe
 Invoke-WebRequest -UseBasicParsing -OutFile docker.exe https://master.dockerproject.org/windows/x86_64/docker.exe
