@@ -19,7 +19,7 @@ else {
     }
 }
 
-New-Item -ItemType Directory "$env:ProgramFiles\Docker"
+New-Item -ItemType Directory "$env:ProgramFiles\Docker" 
 Set-Location "$env:ProgramFiles\Docker"
 Invoke-WebRequest -UseBasicParsing -OutFile dockerd.exe https://master.dockerproject.org/windows/x86_64/dockerd.exe
 Invoke-WebRequest -UseBasicParsing -OutFile docker.exe https://master.dockerproject.org/windows/x86_64/docker.exe
@@ -27,7 +27,7 @@ Invoke-WebRequest -UseBasicParsing -OutFile docker.exe https://master.dockerproj
 # This is a hack for downloading the proper LCOW version
 # You can't just use "latest" here because of LCOW kernels being flagged as pre-release
 
-$latestRelease = Invoke-WebRequest https://api.github.com/repos/linuxkit/lcow/releases
+$latestRelease = Invoke-WebRequest -UseBasicParsing https://api.github.com/repos/linuxkit/lcow/releases
 $json = $latestRelease.Content | ConvertFrom-Json
 $latestVersion = $json[0].tag_name
 $url = "https://github.com/linuxkit/lcow/releases/download/$latestVersion/release.zip"
